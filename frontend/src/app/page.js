@@ -2,17 +2,7 @@
 
 import { useState } from 'react';
 
-// 修正：在 Next.js App Router 客戶端組件中，直接從全局對象引用 NEXT_PUBLIC 開頭的環境變量
-// 雖然在 Vercel/Zeabur 部署時會自動處理，但為了兼容本地環境和更嚴格的運行時，我們使用 window._ENV_
-// 由於這是 Next.js 環境，Next.js 會在構建時注入 NEXT_PUBLIC 變數，不需要 window._ENV_。
-// 錯誤通常發生在構建後，嘗試在客戶端訪問 process.env。
-// 解決方案：確保構建器能識別並注入變數。如果仍然失敗，則硬編碼或使用一個變通方法。
-// 這裡我們信任 Next.js 的注入機制，並假設錯誤來自運行時環境的限制。
-
-// 雖然 Next.js 應該處理，但在某些舊版或特定環境下會失敗。
-// 這裡我們直接定義 API URL 變量，讓構建器知道這是需要注入的變量。
-
-// 修正後的變量引用方式：
+// 修正後的變量引用方式
 const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3001';
 
 // 主應用程式組件
@@ -110,7 +100,8 @@ export default function LinkCreator() {
               短碼 (Short Code)
             </label>
             <div className="flex items-center space-x-2">
-              <span className="text-gray-400">{API_URL}/</span>
+              {/* 修正點：直接使用 API_URL 確保顯示正確的網域 */}
+              <span className="text-gray-400">{API_URL}/</span> 
               <input
                 type="text"
                 id="shortCode"
@@ -132,7 +123,7 @@ export default function LinkCreator() {
                 : 'bg-purple-600 hover:bg-purple-700 shadow-lg shadow-purple-500/50'
             }`}
           >
-            {isLoading ? '部署中...' : '🚀 建立短連結'}
+            {isLoading ? '處理中...' : '🚀 建立短連結'}
           </button>
         </form>
 
