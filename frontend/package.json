@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "next dev --turbopack",
-    "build": "next build --turbopack",
+    "build": "next build && echo 'API_URL_FIX_1'",
     "start": "next start",
     "lint": "eslint"
   },
