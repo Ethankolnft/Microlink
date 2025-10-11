@@ -4,7 +4,7 @@ import { useState } from 'react';
 
 // 【最終修正：為確保部署成功，硬編碼 Zeabur 的公開 API URL】
 // 確保前端在編譯時使用正確的 URL，避免快取問題。
-const API_URL = 'https://microlink.zeabur.app';
+const API_URL = '[https://microlink.zeabur.app](https://microlink.zeabur.app)';
 
 // 主應用程式組件
 export default function LinkCreator() {
@@ -90,7 +90,7 @@ export default function LinkCreator() {
               id="targetUrl"
               value={targetUrl}
               onChange={(e) => setTargetUrl(e.target.value)}
-              placeholder="例如: google.com/long-page"
+              placeholder="例如: [google.com/long-page](https://google.com/long-page)"
               required
               className="w-full px-4 py-3 bg-gray-700 border border-gray-600 rounded-lg focus:ring-purple-500 focus:border-purple-500 text-white transition duration-200"
             />
@@ -138,15 +138,3 @@ export default function LinkCreator() {
     </div>
   );
 }
-```
-eof
-
-### 步驟二：提交並重新部署
-
-1.  在本地終端機執行 Git 命令：
-
-    ```bash
-    git add frontend/src/app/page.js
-    git commit -m "fix: Final hardcode URL to bypass Next.js build cache for demo"
-    git push
-    
