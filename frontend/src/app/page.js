@@ -2,8 +2,9 @@
 
 import { useState } from 'react';
 
-// 修正後的變量引用方式
-const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3001';
+// 【最終修正：為確保部署成功，硬編碼 Zeabur 的公開 API URL】
+// 確保前端在編譯時使用正確的 URL，避免快取問題。
+const API_URL = 'https://microlink.zeabur.app';
 
 // 主應用程式組件
 export default function LinkCreator() {
@@ -29,7 +30,7 @@ export default function LinkCreator() {
 
     try {
       // 發送 POST 請求到您的後端 API
-      const response = await fetch(`${API_URL}/api/links`, {
+      const response = await fetch(`${API_URL}/api/links`, { // 使用硬編碼的 API_URL
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -100,7 +101,7 @@ export default function LinkCreator() {
               短碼 (Short Code)
             </label>
             <div className="flex items-center space-x-2">
-              {/* 修正點：直接使用 API_URL 確保顯示正確的網域 */}
+              {/* 顯示硬編碼的 Zeabur 網址，用於最終演示 */}
               <span className="text-gray-400">{API_URL}/</span> 
               <input
                 type="text"
@@ -137,3 +138,15 @@ export default function LinkCreator() {
     </div>
   );
 }
+```
+eof
+
+### 步驟二：提交並重新部署
+
+1.  在本地終端機執行 Git 命令：
+
+    ```bash
+    git add frontend/src/app/page.js
+    git commit -m "fix: Final hardcode URL to bypass Next.js build cache for demo"
+    git push
+    
