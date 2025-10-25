@@ -1,10 +1,13 @@
-'use client'; // 使用客戶端組件
+'use client';
 
 import { useState } from 'react';
 
-// 【最終修正：為確保部署成功，硬編碼 Zeabur 的公開 API URL】
-// 確保前端在編譯時使用正確的 URL，避免快取問題。
-const API_URL = '[https://microlink.zeabur.app](https://microlink.zeabur.app)';
+// 使用環境變量，如果沒有設置則使用默認值
+const API_URL = process.env.NEXT_PUBLIC_API_URL || 'https://microlink.zeabur.app';
+
+export default function LinkCreator() {
+  // ... 其他代碼保持不變
+}
 
 // 主應用程式組件
 export default function LinkCreator() {
