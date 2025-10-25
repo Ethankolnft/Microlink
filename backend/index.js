@@ -8,7 +8,7 @@ const port = process.env.PORT || 3001;
 
 // --- 數據庫連接 ---
 const client = new Client({
-    connectionString: process.env.DATABASE_URL
+    connectionString: process.env.POSTGRES_URI || process.env.DATABASE_URL
 });
 
 client.connect()
