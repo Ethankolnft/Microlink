@@ -12,8 +12,35 @@ const client = new Client({
 });
 
 client.connect()
-    .then(() => console.log('Backend: Database connected successfully!'))
+    .then(() => {
+        console.log('Backend: Database connected successfully!');
+        // 自動創建 links 表
+        return createLinksTable();
+    })
+    .then(() => {
+        console.log('Backend: Links table is ready!');
+    })
     .catch(err => console.error('Backend: Database connection error:', err.stack));
+
+// 創建 links 表的函數
+async function createLinksTable() {
+    try {
+        await client.query(`
+            CREATE TABLE IF NOT EXISTS links (
+                id SERIAL PRIMARY KEY,
+                short_code VARCHAR(255) UNIQUE NOT NULL,
+                target_url TEXT NOT NULL,
+                created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+                updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+            );
+            
+            CREATE INDEX IF NOT EXISTS idx_short_code ON links(short_code);
+        `);
+        console.log('Backend: Links table created or already exists');
+    } catch (error) {
+        console.error('Backend: Error creating links table:', error);
+    }
+}
 
 // --- 中間件 ---
 app.use(cors({
